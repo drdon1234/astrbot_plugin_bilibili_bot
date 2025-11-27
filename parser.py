@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import re
-import json
 import asyncio
 from typing import Optional, Dict, Any, Tuple, List
 from urllib.parse import urlparse, parse_qs
 import aiohttp
-from astrbot.api.message_components import Plain, Video, Node, Nodes
+from astrbot.api.message_components import Plain, Video, Node
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
@@ -260,7 +259,7 @@ class BilibiliParser:
             if platform != "wechatpadpro" and platform != "webchat" and platform != "gewechat":
                 try:
                     sender_id = int(sender_id)
-                except:
+                except ValueError:
                     sender_id = 10000
             
             timeout = aiohttp.ClientTimeout(total=30)
