@@ -16,5 +16,17 @@
         "type": "float",
         "hint": "超过此大小的视频将被跳过，设置为0表示不限制",
         "default": 0.0
+    },
+    "group_blacklist_mode": {
+        "description": "群组黑名单模式",
+        "type": "bool",
+        "hint": "true表示黑名单模式，false表示白名单模式",
+        "default": true
+    },
+    "group_list": {
+        "description": "群组列表",
+        "type": "list",
+        "hint": "黑名单模式下表示禁止使用的群组ID列表，白名单模式下表示允许使用的群组ID列表",
+        "default": []
     }
 }

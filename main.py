@@ -13,18 +13,34 @@ class BilibiliBotPlugin(Star):
         self.is_auto_pack = config.get("is_auto_pack", True)
         max_video_size_mb = config.get("max_video_size_mb", 0.0)
         self.parser = BilibiliParser(max_video_size_mb=max_video_size_mb)
+        # 群组黑名单/白名单配置
+        self.group_blacklist_mode = config.get("group_blacklist_mode", False)
+        self.group_list = config.get("group_list", [])
 
     async def terminate(self):
         pass
 
     @filter.event_message_type(EventMessageType.ALL)
     async def auto_parse(self, event: AstrMessageEvent):
+        # 获取群组ID
+        group_id = event.message_obj.group_id
+        
+        # 群组黑名单/白名单判断
+        if group_id:
+            if self.group_blacklist_mode:
+                # 黑名单模式：群组ID在列表中则不处理
+                if group_id in self.group_list:
+                    return
+            else:
+                # 白名单模式：群组ID不在列表中则不处理
+                if self.group_list and group_id not in self.group_list:
+                    return
+        
         if not (self.is_auto_parse or bool(re.search(r'.?B站解析|b站解析|bilibili解析', event.message_str))):
             return
         nodes = await self.parser.build_nodes(event, self.is_auto_pack)
         if nodes is None:
             return
-        await event.send(event.plain_result("B站bot为您服务 ٩( 'ω' )و"))
         if self.is_auto_pack:
             await event.send(event.chain_result([Nodes(nodes)]))
         else:
