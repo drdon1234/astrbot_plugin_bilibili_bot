@@ -1,3 +1,12 @@
+> # ! 本项目已停止维护
+> # 新项目链接： [https://github.com/drdon1234/astrbot_plugin_media_parser](https://github.com/drdon1234/astrbot_plugin_media_parser)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 # AstrBot B站直链解析插件
 
 ## 功能特色
@@ -122,3 +131,4 @@ pip install aiohttp
 
 - 视频信息抓取方法参考自B站API
 - 感谢AstrBot团队提供的插件开发框架
+
